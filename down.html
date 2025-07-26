@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薰衣草之境 | ZIP下载</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        
+        :root {
+            --lavender-dark: #6a5acd;
+            --lavender-light: #b57edc;
+            --lavender-pale: #e6e6fa;
+            --text-dark: #4b0082;
+            --text-light: #9370db;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: 
+                url('https://img.freepik.com/free-vector/lavender-floral-background_52683-55215.jpg') center/cover no-repeat,
+                linear-gradient(135deg, var(--lavender-pale) 0%, #f9f0ff 100%);
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.85);
+            z-index: 0;
+        }
+        
+        .background-board {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 
+                0 25px 50px -12px rgba(106, 90, 205, 0.3),
+                0 0 0 2px rgba(255, 255, 255, 0.9) inset;
+            padding: 50px 40px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(8px);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+        
+        .background-board::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--lavender-dark), var(--lavender-light));
+            box-shadow: 0 4px 12px rgba(106, 90, 205, 0.4);
+        }
+        
+        .background-board::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: -30%;
+            width: 200px;
+            height: 200px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%236a5acd" d="M50 0 Q60 30 50 60 Q40 30 50 0" opacity="0.2"/></svg>') center/contain no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-10px, -20px) rotate(5deg); }
+        }
+        
+        .background-board:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 30px 60px -10px rgba(106, 90, 205, 0.4),
+                0 0 0 2px rgba(255, 255, 255, 0.9) inset;
+        }
+        
+        .download-container {
+            text-align: center;
+            padding: 10px;
+            position: relative;
+        }
+        
+        .zip-icon {
+            width: 220px;
+            height: auto;
+            margin: 0 auto 30px;
+            display: block;
+            filter: 
+                drop-shadow(0 8px 16px rgba(106, 90, 205, 0.25))
+                brightness(1.05);
+            transform-style: preserve-3d;
+            transform: perspective(600px) rotateX(0deg) translateY(0);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .background-board:hover .zip-icon {
+            transform: perspective(600px) rotateX(8deg) translateY(-8px);
+            filter: 
+                drop-shadow(0 12px 24px rgba(106, 90, 205, 0.35))
+                brightness(1.15);
+        }
+        
+        .file-info {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 35px;
+            border: 1px solid rgba(106, 90, 205, 0.2);
+            backdrop-filter: blur(6px);
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.05),
+                0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+            transition: all 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--lavender-dark), var(--lavender-light));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .file-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 12px 30px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.7) inset;
+            border-color: rgba(106, 90, 205, 0.4);
+        }
+        
+        .file-info:hover::before {
+            opacity: 1;
+        }
+        
+        .file-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 15px 0 8px;
+            word-break: break-all;
+            letter-spacing: 0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .file-name::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--lavender-dark), var(--lavender-light));
+            transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .file-info:hover .file-name::after {
+            width: 100%;
+        }
+        
+        .file-size {
+            color: var(--text-light);
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+        
+        .download-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin: 30px auto 0;
+            display: block;
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            padding: 0;
+            outline: none;
+            filter: drop-shadow(0 6px 12px rgba(106, 90, 205, 0.3));
+        }
+        
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: linear-gradient(135deg, var(--lavender-dark), var(--lavender-light));
+            z-index: -1;
+            border-radius: 50%;
+            opacity: 0;
+            filter: blur(15px);
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .download-btn:hover::before {
+            opacity: 0.5;
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+        }
+        
+        .download-btn img {
+            width: 100px;
+            height: 100px;
+            transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-origin: center;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-8px) scale(1.1);
+        }
+        
+        .download-btn:hover img {
+            filter: 
+                drop-shadow(0 12px 24px rgba(106, 90, 205, 0.5))
+                brightness(1.2);
+        }
+        
+        .download-text {
+            margin-top: 15px;
+            font-size: 18px;
+            color: var(--lavender-dark);
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+        }
+        
+        .download-text::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--lavender-dark), var(--lavender-light));
+            transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        
+        .download-btn:hover .download-text::after {
+            width: 100%;
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(106, 90, 205, 0.15);
+            border-radius: 5px;
+            margin-top: 35px;
+            overflow: hidden;
+            display: none;
+            box-shadow: 
+                0 2px 5px rgba(0, 0, 0, 0.05) inset,
+                0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--lavender-dark), var(--lavender-light));
+            width: 0%;
+            transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.7) 50%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            animation: shimmer 2.5s infinite;
+            transform: translateX(-100%);
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .lavender-particle {
+            position: absolute;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%236a5acd" d="M50 0 Q60 30 50 60 Q40 30 50 0" opacity="0.6"/></svg>') center/contain no-repeat;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 10;
+        }
+        
+        /* 修改后的雪花样式 */
+        .snowflake {
+            position: fixed;
+            color: #fff;
+            font-size: 1.5em;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+            animation: fall linear infinite;
+            opacity: 0.9;
+            top: -50px;
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(1080deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="snowflakes"></div>
+    
+    <div class="background-board">
+        <div class="download-container">
+            <img src="icon2.png" alt="ZIP文件图标" class="zip-icon">
+            
+            <div class="file-info">
+                <div class="file-name">雾中人33.5.5.zip</div>
+                <div class="file-size">文件大小: 5.7 MB</div>
+            </div>
+            
+            <button class="download-btn" onclick="downloadZip()">
+                <img src="icon1.png" alt="下载按钮">
+                <div class="download-text">点击下载</div>
+            </button>
+            
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 创建100个雪花的全屏随机分布效果
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes');
+            const snowflakes = ['❄️', '❅', '❆', '✻', '✼', '❄', '✵', '❇'];
+            const count = 100; // 100个雪花
+            
+            // 先清空现有雪花
+            container.innerHTML = '';
+            
+            for (let i = 0; i < count; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                
+                // 随机属性
+                const size = Math.random() * 1.5 + 1; // 1-2.5em
+                const startX = Math.random() * window.innerWidth; // 全屏宽度随机分布
+                const duration = Math.random() * 20 + 10; // 10-30秒下落时间
+                const delay = Math.random() * 20; // 最大延迟20秒
+                const opacity = Math.random() * 0.6 + 0.4; // 0.4-1透明度
+                const rotation = Math.random() * 1080; // 0-1080度旋转
+                
+                // 应用样式
+                snowflake.style.left = `${startX}px`;
+                snowflake.style.fontSize = `${size}em`;
+                snowflake.style.animationDuration = `${duration}s`;
+                snowflake.style.animationDelay = `${delay}s`;
+                snowflake.style.opacity = opacity;
+                snowflake.style.transform = `rotate(${rotation}deg)`;
+                
+                container.appendChild(snowflake);
+            }
+        }
+        
+        function downloadZip() {
+            const downloadBtn = document.querySelector('.download-btn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            
+            // 创建薰衣草粒子效果
+            createLavenderParticles(downloadBtn);
+            
+            // 显示进度条
+            progressContainer.style.display = 'block';
+            
+            // 模拟进度条动画
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 90) {
+                    progress = 90;
+                }
+                progressBar.style.width = `${progress}%`;
+            }, 150);
+            
+            // 创建虚拟下载链接
+            const link = document.createElement('a');
+            link.href = 'V33.5.5.zip';
+            link.download = 'V33.5.5.zip';
+            link.style.display = 'none';
+            
+            // 添加到文档并触发点击
+            document.body.appendChild(link);
+            link.click();
+            
+            // 完成进度条
+            setTimeout(() => {
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                
+                // 2秒后隐藏进度条
+                setTimeout(() => {
+                    progressContainer.style.display = 'none';
+                    progressBar.style.width = '0%';
+                }, 1500);
+                
+                // 移除链接
+                document.body.removeChild(link);
+            }, 1200);
+        }
+        
+        function createLavenderParticles(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('lavender-particle');
+                
+                const size = Math.random() * 20 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 50 + 30;
+                const x = centerX + Math.cos(angle) * distance;
+                const y = centerY + Math.sin(angle) * distance;
+                
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                
+                document.body.appendChild(particle);
+                
+                // 粒子动画
+                const animation = particle.animate([
+                    { 
+                        transform: 'translate(0, 0) scale(1) rotate(0deg)',
+                        opacity: 0.8 
+                    },
+                    { 
+                        transform: `translate(${(Math.random() - 0.5) * 150}px, ${(Math.random() - 0.5) * 150}px) scale(0) rotate(${Math.random() * 360}deg)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 1200,
+                    easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+                });
+                
+                animation.onfinish = () => {
+                    particle.remove();
+                };
+            }
+        }
+        
+        // 初始化雪花效果
+        window.addEventListener('load', createSnowflakes);
+        
+        // 窗口大小变化时重绘雪花
+        window.addEventListener('resize', createSnowflakes);
+    </script>
+</body>
+</html>
